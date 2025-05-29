@@ -22,7 +22,7 @@ set ( EXTERNAL
 set ( SOURCE_ONE_WEEKEND
   src/ToyPathTracer/main.cc
   #src/ToyPathTracer/camera.h
-  src/ToyPathTracer/color.h
+  src/ToyPathTracer/colour.h
   #src/ToyPathTracer/hittable.h
   #src/ToyPathTracer/hittable_list.h
   #src/ToyPathTracer/interval.h
