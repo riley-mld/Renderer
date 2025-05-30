@@ -1,2 +1,6 @@
+# Compile stuff
 .vscode/*
+build/*
+
+# Project specific
 *.ppm

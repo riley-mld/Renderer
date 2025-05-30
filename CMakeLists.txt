@@ -23,13 +23,13 @@ set ( SOURCE_ONE_WEEKEND
   src/ToyPathTracer/main.cc
   #src/ToyPathTracer/camera.h
   src/ToyPathTracer/colour.h
-  #src/ToyPathTracer/hittable.h
-  #src/ToyPathTracer/hittable_list.h
+  src/ToyPathTracer/hittable.h
+  src/ToyPathTracer/hittable_list.h
   #src/ToyPathTracer/interval.h
   #src/ToyPathTracer/material.h
-  #src/ToyPathTracer/ray.h
-  #src/ToyPathTracer/rtweekend.h
-  #src/ToyPathTracer/sphere.h
+  src/ToyPathTracer/ray.h
+  src/ToyPathTracer/utils.h
+  src/ToyPathTracer/sphere.h
   src/ToyPathTracer/vec3.h
 )
 
