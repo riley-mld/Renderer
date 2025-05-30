@@ -19,13 +19,13 @@ set ( EXTERNAL
   src/external/stb_image.h
 )
 
-set ( SOURCE_ONE_WEEKEND
+set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/main.cc
   #src/ToyPathTracer/camera.h
   src/ToyPathTracer/colour.h
   src/ToyPathTracer/hittable.h
   src/ToyPathTracer/hittable_list.h
-  #src/ToyPathTracer/interval.h
+  src/ToyPathTracer/interval.h
   #src/ToyPathTracer/material.h
   src/ToyPathTracer/ray.h
   src/ToyPathTracer/utils.h
@@ -63,4 +63,4 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # Executables
-add_executable(ToyPathTracer      ${EXTERNAL} ${SOURCE_ONE_WEEKEND})
+add_executable(ToyPathTracer      ${EXTERNAL} ${SOURCE_TOY_PATHTRACER})
