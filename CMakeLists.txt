@@ -26,7 +26,7 @@ set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/hittable.h
   src/ToyPathTracer/hittable_list.h
   src/ToyPathTracer/interval.h
-  #src/ToyPathTracer/material.h
+  src/ToyPathTracer/material.h
   src/ToyPathTracer/ray.h
   src/ToyPathTracer/utils.h
   src/ToyPathTracer/sphere.h

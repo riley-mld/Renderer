@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "hittable.h"
+#include "material.h"
 
 class camera {
     public:
@@ -91,8 +92,14 @@ class camera {
             }
             hit_record rec;
             if (world.hit(r, interval(0.001, infinity), rec)) {
-                vec3 direction = rec.normal + random_on_hemisphere(rec.normal);
-                return 0.5 * ray_colour(ray(rec.p, direction), depth-1, world);
+                ray scattered;
+                colour attenuation;
+                if (rec.mat->scatter(r, rec, attenuation, scattered)){
+                    //return colour(0,0,0);
+                    return attenuation * ray_colour(scattered, depth-1, world);
+                    std::clog << "depht";
+                }
+                return colour(0,0,0);
             }
             vec3 unit_direction = unit_vector(r.direction());
             auto a = 0.5*(unit_direction.y() + 1.0);
