@@ -21,7 +21,7 @@ set ( EXTERNAL
 
 set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/main.cc
-  #src/ToyPathTracer/camera.h
+  src/ToyPathTracer/camera.h
   src/ToyPathTracer/colour.h
   src/ToyPathTracer/hittable.h
   src/ToyPathTracer/hittable_list.h
