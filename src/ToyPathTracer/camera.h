@@ -94,13 +94,10 @@ class camera {
             if (world.hit(r, interval(0.001, infinity), rec)) {
                 ray scattered;
                 colour attenuation;
-                if (rec.mat->scatter(r, rec, attenuation, scattered)){
-                    //return colour(0,0,0);
+                if (rec.mat->scatter(r, rec, attenuation, scattered))
                     return attenuation * ray_colour(scattered, depth-1, world);
-                    std::clog << "depht";
-                }
                 return colour(0,0,0);
-            }
+                }
             vec3 unit_direction = unit_vector(r.direction());
             auto a = 0.5*(unit_direction.y() + 1.0);
             return (1.0-a) * colour(1.0, 1.0, 1.0) + a*colour(0.5, 0.7, 1.0);
