@@ -13,7 +13,7 @@ class interval {
             return max - min;
         }
 
-        bool constrains(double x) const {
+        bool contains(double x) const {
             return min <= x && x <= max;
         }
 
