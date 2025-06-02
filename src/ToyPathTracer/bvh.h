@@ -21,7 +21,7 @@ class bvh_node : public hittable {
             // Build the bounding box of the span of source objects.
             bbox = aabb::empty;
             for (size_t object_index=start; object_index < end; object_index++)
-                bbox = aabb(bbox, objects[object_index]->bounding_box);
+                bbox = aabb(bbox, objects[object_index]->bounding_box());
             
             int axis = bbox.longest_axis();
 
