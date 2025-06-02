@@ -13,7 +13,7 @@ class aabb {
             // Treat two points a and b as extremes for the boudning box, so we don't require a particular minimum/maximum coordinate order
             x = (a[0] <= b[0]) ? interval(a[0], b[0]) : interval(b[0], a[0]);
             y = (a[1] <= b[1]) ? interval(a[1], b[1]) : interval(b[1], a[1]);
-            y = (a[2] <= b[2]) ? interval(a[2], b[2]) : interval(b[1], a[2]);
+            z = (a[2] <= b[2]) ? interval(a[2], b[2]) : interval(b[1], a[2]);
         }
 
         aabb(const aabb& box0, const aabb& box1) {
