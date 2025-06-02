@@ -7,6 +7,7 @@
 #include "sphere.h"
 
 int main() {
+    // Setting up the world
     hittable_list world;
 
     auto ground_material = make_shared<lambertian>(colour(0.5, 0.5, 0.5));
@@ -24,7 +25,8 @@ int main() {
                     // diffuse
                     auto albedo = colour::random() * colour::random();
                     sphere_material = make_shared<lambertian>(albedo);
-                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                    auto center2 = center + vec3(0, random_double(0,0.5), 0);
+                    world.add(make_shared<sphere>(center, center2, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     // metal
                     auto albedo = colour::random(0.5, 1);
@@ -49,11 +51,12 @@ int main() {
     auto material3 = make_shared<metal>(colour(0.7, 0.6, 0.5), 0.0);
     world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
 
+    // Setting up the camera
     camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 1200;
-    cam.samples_per_pixel = 500;
+    cam.image_width       = 400;
+    cam.samples_per_pixel = 100;
     cam.max_depth         = 50;
 
     cam.vfov     = 20;
@@ -64,5 +67,6 @@ int main() {
     cam.defocus_angle = 0.6;
     cam.focus_dist    = 10.0;
 
+    // Render
     cam.render(world);
 }
