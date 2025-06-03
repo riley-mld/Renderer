@@ -1,9 +1,11 @@
 ## Renderer
 
-Simple ray tracer written in C++
+Path tracer written in C++
 
 
-![Bouncing balls render](/renders/render_01.jpg)
+![HDRI outdoor render](/renders/render_01.jpg)
 
-![Earth texture render](/renders/render_02.jpg)
+![HDRI indoor render](/renders/render_02.jpg)
+
+![Area light render](/renders/render_03.jpg)
 

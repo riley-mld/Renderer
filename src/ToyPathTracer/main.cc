@@ -67,6 +67,7 @@ void bouncing_spheres() {
     cam.image_width       = 1200;
     cam.samples_per_pixel = 500;
     cam.max_depth         = 50;
+    cam.background = colour(0.70, 0.80, 1.00);
 
     cam.vfov     = 20;
     cam.lookfrom = point3(13,2,3);
@@ -95,6 +96,7 @@ void checkered_spheres() {
     cam.image_width       = 400;
     cam.samples_per_pixel = 100;
     cam.max_depth         = 50;
+    cam.background = colour(0.70, 0.80, 1.00);
 
     cam.vfov     = 20;
     cam.lookfrom = point3(13,2,3);
@@ -119,6 +121,7 @@ void earth() {
     cam.image_width       = 1200;
     cam.samples_per_pixel = 500;
     cam.max_depth         = 50;
+    cam.background = colour(0.70, 0.80, 1.00);
 
     cam.vfov     = 20;
     cam.lookfrom = point3(0,0,12);
@@ -145,6 +148,7 @@ void perlin_spheres() {
     cam.image_width       = 400;
     cam.samples_per_pixel = 100;
     cam.max_depth         = 50;
+    cam.background = colour(0.70, 0.80, 1.00);
 
     cam.vfov     = 20;
     cam.lookfrom = point3(13,2,3);
@@ -181,6 +185,7 @@ void quads_tris() {
     cam.image_width       = 400;
     cam.samples_per_pixel = 100;
     cam.max_depth         = 50;
+    cam.background = colour(0.70, 0.80, 1.00);
 
     cam.vfov     = 80;
     cam.lookfrom = point3(0,0,9);
@@ -192,13 +197,74 @@ void quads_tris() {
     cam.render(world);
 }
 
+void simple_light() {
+    hittable_list world;
+
+    auto pertext = make_shared<noise_texture>(4);
+    world.add(make_shared<sphere>(point3(0,-1000,0), 1000, make_shared<lambertian>(colour(0.5, 0.5, 0.5))));
+    world.add(make_shared<sphere>(point3(0,2,0), 2, make_shared<lambertian>(pertext)));
+
+    auto difflight = make_shared<diffuse_light>(colour(4,4,4));
+    world.add(make_shared<quad>(point3(3,1,-2), vec3(2,0,0), vec3(0,2,0), difflight));
+
+    camera cam;
+
+    cam.aspect_ratio      = 16.0 / 9.0;
+    cam.image_width       = 1920;
+    cam.samples_per_pixel = 1000;
+    cam.max_depth         = 50;
+    cam.background        = colour(0,0,0);
+
+    cam.vfov     = 20;
+    cam.lookfrom = point3(26,3,6);
+    cam.lookat   = point3(0,2,0);
+    cam.vup      = vec3(0,1,0);
+
+    cam.defocus_angle = 0;
+
+    cam.render(world);
+}
+
+void hdri() {
+    hittable_list world;
+
+    world.add(make_shared<sphere>(point3(0,2,-5), 2, make_shared<lambertian>(colour(0.5, 0.5, 0.5))));
+    world.add(make_shared<sphere>(point3(0,2,0), 2, make_shared<metal>(colour(0.7, 0.7, 0.7), 0.03)));
+    world.add(make_shared<sphere>(point3(0,2,5), 2, make_shared<dielectric>(1.53)));
+    world.add(make_shared<sphere>(point3(0,2,5), 1.95, make_shared<dielectric>(1.0 / 1.53)));
+
+    auto hdri_texture = make_shared<image_texture>("hdri5.jpg");
+    auto hdri_mat = make_shared<diffuse_light>(hdri_texture);
+    world.add(make_shared<sphere>(point3(0,0,0), 10000, hdri_mat));
+
+    camera cam;
+
+    cam.aspect_ratio      = 16.0 / 9.0;
+    cam.image_width       = 1920;
+    cam.samples_per_pixel = 1000;
+    cam.max_depth         = 50;
+    cam.background        = colour(0,0,0);
+
+    cam.vfov     = 20;
+    cam.lookfrom = point3(-30,6,0);
+    cam.lookat   = point3(0,2,0);
+    cam.vup      = vec3(0,1,0);
+
+    cam.defocus_angle = 0;
+
+    cam.render(world);
+}
+
+
 int main() {
 
-    switch(5) {
+    switch(7) {
         case 1: bouncing_spheres(); break;
         case 2: checkered_spheres(); break;
         case 3: earth(); break;
         case 4: perlin_spheres(); break;
         case 5: quads_tris(); break;
+        case 6: simple_light(); break;
+        case 7: hdri(); break;
     }
 }

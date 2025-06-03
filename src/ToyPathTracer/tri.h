@@ -8,7 +8,7 @@ class tri : public quad {
       : quad(o, ac, ab, m)
     {}
 
-    virtual bool is_interior(double a, double b, hit_record& rec) const override{
+    bool is_interior(double a, double b, hit_record& rec) const override{
         if ((a < 0) || (b < 0) || (a + b > 1))
             return false;
 
