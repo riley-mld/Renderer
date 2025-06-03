@@ -35,6 +35,7 @@ set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/bvh.h
   src/ToyPathTracer/texture.h
   src/ToyPathTracer/image_utils.h
+  src/ToyPathTracer/perlin.h
 )
 
 include_directories(src)

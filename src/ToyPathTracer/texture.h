@@ -1,6 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include "perlin.h"
 #include "image_utils.h"
 
 
@@ -70,6 +71,20 @@ class image_texture : public texture {
     
     private:
         image image;
+};
+
+class noise_texture : public texture {
+    public:
+        noise_texture(double scale) : scale(scale) {}
+
+        colour value(double u, double v, const point3& p) const override {
+            return colour(1,1,1) * noise.turb(p, 7);
+            return colour(0.5, 0.5, 0.5) * (1 + std::sin(scale * p.z() + 10 * noise.turb(p, 7)));
+        }
+
+    private:
+        perlin noise;
+        double scale;
 };
 
 #endif
