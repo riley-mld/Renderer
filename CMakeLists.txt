@@ -33,6 +33,8 @@ set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/vec3.h
   src/ToyPathTracer/aabb.h
   src/ToyPathTracer/bvh.h
+  src/ToyPathTracer/texture.h
+  src/ToyPathTracer/image_utils.h
 )
 
 include_directories(src)

@@ -9,7 +9,7 @@ class aabb {
 
         aabb(const interval& x, const interval& y, const interval& z): x(x), y(y), z(z) {}
 
-        aabb(const point3& a, point3& b) {
+        aabb(const point3& a, const point3& b) {
             // Treat two points a and b as extremes for the boudning box, so we don't require a particular minimum/maximum coordinate order
             x = (a[0] <= b[0]) ? interval(a[0], b[0]) : interval(b[0], a[0]);
             y = (a[1] <= b[1]) ? interval(a[1], b[1]) : interval(b[1], a[1]);
