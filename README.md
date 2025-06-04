@@ -7,5 +7,7 @@ Path tracer written in C++
 
 ![HDRI indoor render](/renders/render_02.jpg)
 
-![Area light render](/renders/render_03.jpg)
+![Cornell Box render](/renders/render_03.jpg)
+
+![Area light render](/renders/render_04.jpg)
 

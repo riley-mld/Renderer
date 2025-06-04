@@ -38,6 +38,7 @@ set ( SOURCE_TOY_PATHTRACER
   src/ToyPathTracer/perlin.h
   src/ToyPathTracer/quad.h
   src/ToyPathTracer/tri.h
+  src/ToyPathTracer/constant_medium.h
 )
 
 include_directories(src)
