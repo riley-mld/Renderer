@@ -242,8 +242,8 @@ void hdri() {
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = 1920;
-    cam.samples_per_pixel = 1000;
-    cam.max_depth         = 50;
+    cam.samples_per_pixel = 100;
+    cam.max_depth         = 500;
     cam.background        = colour(0,0,0);
 
     cam.vfov     = 20;
@@ -286,7 +286,7 @@ void cornell_box() {
     cam.aspect_ratio      = 1.0;
     cam.image_width       = 1200;
     cam.samples_per_pixel = 1000;
-    cam.max_depth         = 50;
+    cam.max_depth         = 500;
     cam.background        = colour(0,0,0);
 
     cam.vfov     = 40;
@@ -330,7 +330,7 @@ void cornell_smoke() {
     cam.aspect_ratio      = 1.0;
     cam.image_width       = 600;
     cam.samples_per_pixel = 200;
-    cam.max_depth         = 50;
+    cam.max_depth         = 500;
     cam.background        = colour(0,0,0);
 
     cam.vfov     = 40;
@@ -425,7 +425,7 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth) {
 
 int main() {
 
-    switch(10) {
+    switch(7) {
         case 1: bouncing_spheres(); break;
         case 2: checkered_spheres(); break;
         case 3: earth(); break;

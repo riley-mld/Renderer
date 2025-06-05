@@ -135,6 +135,18 @@ class camera {
             if (!rec.mat->scatter(r, rec, attenuation, scattered))
                 return colour_from_emission;
 
+            double max_atten = std::max({ attenuation.x(), attenuation.y(), attenuation.z() });
+            // clamp to [0, 0.95] (never exactly 1.0)
+            double p_survive = std::min(max_atten, 0.95);
+
+            // 6) Roll Russian-roulette
+            if (random_double() > p_survive) {
+                // kill this path: only return emission up to this bounce
+                return colour_from_emission;
+            }
+
+            attenuation = attenuation / p_survive;
+
             colour colour_from_scatter = attenuation * ray_colour(scattered, depth-1, world);
 
             return colour_from_emission + colour_from_scatter;
