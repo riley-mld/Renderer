@@ -19,26 +19,28 @@ set ( EXTERNAL
   src/external/stb_image.h
 )
 
-set ( SOURCE_TOY_PATHTRACER
-  src/ToyPathTracer/main.cc
-  src/ToyPathTracer/camera.h
-  src/ToyPathTracer/colour.h
-  src/ToyPathTracer/hittable.h
-  src/ToyPathTracer/hittable_list.h
-  src/ToyPathTracer/interval.h
-  src/ToyPathTracer/material.h
-  src/ToyPathTracer/ray.h
-  src/ToyPathTracer/utils.h
-  src/ToyPathTracer/sphere.h
-  src/ToyPathTracer/vec3.h
-  src/ToyPathTracer/aabb.h
-  src/ToyPathTracer/bvh.h
-  src/ToyPathTracer/texture.h
-  src/ToyPathTracer/image_utils.h
-  src/ToyPathTracer/perlin.h
-  src/ToyPathTracer/quad.h
-  src/ToyPathTracer/tri.h
-  src/ToyPathTracer/constant_medium.h
+set ( SOURCE_PATHTRACER
+  src/PathTracer/main.cc
+  src/PathTracer/camera.h
+  src/PathTracer/colour.h
+  src/PathTracer/hittable.h
+  src/PathTracer/hittable_list.h
+  src/PathTracer/interval.h
+  src/PathTracer/material.h
+  src/PathTracer/ray.h
+  src/PathTracer/utils.h
+  src/PathTracer/sphere.h
+  src/PathTracer/vec3.h
+  src/PathTracer/aabb.h
+  src/PathTracer/bvh.h
+  src/PathTracer/texture.h
+  src/PathTracer/image_utils.h
+  src/PathTracer/perlin.h
+  src/PathTracer/quad.h
+  src/PathTracer/tri.h
+  src/PathTracer/constant_medium.h
+  src/PathTracer/onb.h
+  src/PathTracer/pdf.h
 )
 
 include_directories(src)
@@ -71,4 +73,4 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # Executables
-add_executable(ToyPathTracer      ${EXTERNAL} ${SOURCE_TOY_PATHTRACER})
+add_executable(PathTracer      ${EXTERNAL} ${SOURCE_PATHTRACER})

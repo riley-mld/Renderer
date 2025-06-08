@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "hittable.h"
+#include "pdf.h"
 #include "material.h"
 
 class camera {
@@ -20,7 +21,7 @@ class camera {
         double defocus_angle = 0; // Variation of angle of rays through each pixel
         double focus_dist = 10; // Distance from camera lookfrom point to plane of perfect focus
 
-        void render(const hittable& world) {
+        void render(const hittable& world, const hittable& lights) {
             initialise();
 
         std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
@@ -32,7 +33,7 @@ class camera {
                 for (int s_j = 0; s_j < sqrt_spp; s_j++) {
                     for (int s_i = 0; s_i < sqrt_spp; s_i++) {
                         ray r = get_ray(i, j, s_i, s_j);
-                        pixel_colour += ray_colour(r, max_depth, world);
+                        pixel_colour += ray_colour(r, max_depth, world, lights);
                     }
                 }
                 write_colour(std::cout, pixel_samples_scale * pixel_colour);
@@ -131,7 +132,7 @@ class camera {
             return center + (p[0] * defocus_disk_u) + (p[1] * defocus_disk_v);
         }
 
-        colour ray_colour(const ray& r, int depth, const hittable& world) const {
+        colour ray_colour(const ray& r, int depth, const hittable& world, const hittable& lights) const {
             // If we've exceedeed ray bounce limit, more more light is gathered.
             if (depth <= 0) {
                 return colour(0,0,0);
@@ -143,16 +144,15 @@ class camera {
             if (!world.hit(r, interval(0.001, infinity), rec))
                 return background;
 
-            ray scattered;
-            colour attenuation;
-            colour colour_from_emission = rec.mat->emitted(rec.u, rec.v, rec.p);
+            scatter_record srec;
+            colour colour_from_emission = rec.mat->emitted(r, rec, rec.u, rec.v, rec.p);
 
-            if (!rec.mat->scatter(r, rec, attenuation, scattered))
+            if (!rec.mat->scatter(r, rec, srec))
                 return colour_from_emission;
 
             // Russian Roulette
             if (depth <= max_depth - 5) {
-                double max_atten = std::max({ attenuation.x(), attenuation.y(), attenuation.z() });
+                double max_atten = std::max({ srec.attenuation.x(), srec.attenuation.y(), srec.attenuation.z() });
                 // clamp to [0, 0.95] (never exactly 1.0)
                 double p_survive = std::min(max_atten, 0.95);
 
@@ -162,11 +162,23 @@ class camera {
                     return colour_from_emission;
                 }
 
-                attenuation = attenuation / p_survive;
+                srec.attenuation = srec.attenuation / p_survive;
             }
 
+            if (srec.skip_pdf) {
+                return srec.attenuation * ray_colour(srec.skip_pdf_ray, depth-1, world, lights);
+            }
 
-            colour colour_from_scatter = attenuation * ray_colour(scattered, depth-1, world);
+            auto light_prt = make_shared<hittable_pdf>(lights, rec.p);
+            mixture_pdf p(light_prt, srec.pdf_ptr);
+
+            ray scattered = ray(rec.p, p.generate(), r.time());
+            auto pdf_value = p.value(scattered.direction());
+
+            double scattering_pdf = rec.mat->scattering_pdf(r, rec, scattered);
+
+            colour sample_colour = ray_colour(scattered, depth-1, world, lights);
+            colour colour_from_scatter = (srec.attenuation * scattering_pdf * sample_colour) / pdf_value;
 
             return colour_from_emission + colour_from_scatter;
 
