@@ -9,5 +9,3 @@ Path tracer written in C++
 
 ![Cornell Box render](/renders/render_03.jpg)
 
-![Area light render](/renders/render_04.jpg)
-
